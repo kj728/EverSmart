@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="pretty.css">
+
+    <script src="eversmart.js" defer></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="contents">
+            <div class="header">
+
+
+                <div class="name-tagline">
+                    <h1>EverSmart</h1>
+                    <p>Best deals every day!</p>
+                    <!-- <ion-icon name="person-outline"></ion-icon> -->
+                </div>
+
+                <div class="search-bar">
+                    <input id="edtSearch" type="text" name="search-bar" placeholder="Search...">
+                    <!-- <input id="btnSearch" type="button" value="Search"> -->
+                    <ion-icon id="app-search" name="search-outline"></ion-icon>
+                </div>
+
+
+
+                <div class="links-cart">
+                    <div class="dropdown">
+        
+                        <ion-icon class="menu-icon" id="app-menu" onclick="" name="menu-outline"> </ion-icon>
+
+                        <div class="menu-dropdown-content">
+                            <!-- <a href="#">Products</a>
+                            <a href="#">Orders</a> -->
+                            <!-- <a href="#">Reminders </a>
+                            <a href="#">Planning </a> -->
+                        </div>
+
+                    </div>
+
+
+                    <ion-icon id="app-home" onclick="" name="home-outline"> </ion-icon>
+                    <ion-icon id="app-cart" onclick="" name="cart-outline"> </ion-icon>
+                    <ion-icon id="app-auth" name="person-outline"></ion-icon>
+                    <p id="app-user"> </p>
+
+                </div>
+
+            </div>
+
+            <div class="body">
+                <!-- <div class="left-nav-pane">
+                    <h3>Categories</h3>
+
+                    <div class="category-card">
+                        <p>Category 1</p>
+                    </div>
+
+                    <div class="category-card">
+                        <p>Category 2</p>
+                    </div>
+
+                </div> -->
+
+                <div class="right-display-port">
+                    <div class="dynamic-island">
+
+                        <div id="dc-home" class="home">
+                            <div class="landing-hero">
+
+                                <video
+                                    src="./videos/139,594 Shopping Clothes Stock Videos and Royalty-Free Footage - iStock.mp4"
+                                    autoplay muted loop></video>
+
+                                <h1>Welcome to EverSmart</h1>
+                                <p>EverSmart is your one-stop shop for stylish and affordable clothing.
+                                    We offer a wide variety of trendy clothes for every occasion, all at prices that
+                                    won't break the bank.
+                                    Whether you're looking for a new outfit for work, a night out, or just everyday
+                                    wear, we have something for you.
+                                    Shop our collection today and discover your new favorite styles!</p>
+
+                            </div>
+
+                            <div class="product-card-grid" id="displayProducts">
+
+
+                                <!-- <div class="product-card">
+                                    <img src="https://images.pexels.com/photos/1366998/pexels-photo-1366998.jpeg?auto=compress&cs=tinysrgb&w=600"
+                                        alt="Beach Image from Unsplash">
+    
+                                    <div class="card-text">
+                                        <h3>XIAOMI Redmi 12C, 6.71", 4GB + 128GB</h3>
+    
+                                    </div>
+                                    <p>Ksh 100,0000</p>
+                                    <input type="button" value="Add to Cart">
+                                </div> -->
+
+                            </div>
+
+
+                        </div>
+
+                        <div id="dc-cart" class="cart-view">
+
+                            <div class="cart-left" id="displayCartItems">
+                                <h1>Cart items</h1>
+
+                                <!-- <div class="cart-item-card">
+                                    <img src="./images/iphone-14.jpg" alt="cart item image">
+                                    <div class="card-content">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    
+                                        <h3>XIAOMI Redmi 12C, 6.71", 4GB + 128GB</h3>
+                                        <p>Ksh 100,0000</p>
+                                      
+                                        <div class="modify-cart">
+                                            <input onclick="reduceQuantity()" id="btnMinus" type="button" value="-">
+                                            <span>1</span>
+                                            <input onclick="reduceQuantity()" id="btnPlus" type="button" value="+">
+
+                                        </div>
+                                
+                                    </div>
+                                </div> -->
+
+
+                            </div>
+
+                            <div class="cart-right">
+                                <h1>Cart Total</h1>
+
+                                <div class="cart-total">
+                                    <h3 id="displayCartGrandTotal">Ksh 0.00</h3>
+                                    <input type="button" value="Proceed To Payment">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="dc-auth" class="auth-view">
+
+                            <div class="auth-left">
+
+                                <form action="">
+                                    <h1>Register</h1>
+                                    <p>Register to create your account</p>
+
+                                    <input id="edtUsrNameReg" type="text" name="username" placeholder="Username">
+                                    <input id="edtUsrEmailReg" type="text" name="email" placeholder="Email">
+                                    <input id="edtUsrPasswordReg" type="password" name="password"
+                                        placeholder="********">
+                                    <input id="btnRegister" type="button" value="Register" onclick="">
+
+
+                                </form>
+
+
+
+
+                            </div>
+
+                            <div class="auth-right">
+
+                                <form action="">
+                                    <h1>Login</h1>
+                                    <p>Login to your account</p>
+
+                                    <input id="edtUsrNameLog" type="text" name="username" placeholder="Username">
+                                    <input id="edtUsrPasswordLog" type="password" name="password"
+                                        placeholder="********">
+                                    <input id="btnLogin" type="button" value="Login">
+                                </form>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <div id="dc-prod" class="prod-view">
+
+                            <div class="prod-left">
+                                <form action="">
+                                    <h1>Add Product</h1>
+                                
+                                    <input id="prodName" type="text" name="username" placeholder="Product Name">
+                                    <input id="prodDesc" type="text" name="email" placeholder="Description">
+                                    <input id="prodPrice" type="text" name="username" placeholder="Price">
+                                    <input id="prodImgUrl" type="text" name="email" placeholder="URL">
+                                    <input id="prodCat" type="text" name="username" placeholder="Category">
+                                    <input id="prodStock" type="text" name="email" placeholder="Stock">
+
+                        
+                                    <input id="btnAddProd" type="button" value="Add Product" onclick="">
+
+
+                                </form>
+
+                            </div>
+
+                            <div class="prod-right">
+
+                                <div class="product-card-grid" id="displayProductsAdmin">
+
+                                    <!-- <div class="product-card">
+                                        <img src="./images/iphone-14.jpg"
+                                            alt="product">
+                                        <div class="card-text">
+                                            <ion-icon id="prod-delete" onclick="" name="trash-outline"></ion-icon>
+
+                                            <h3>Iphone</h3>
+                                            <p>10 in stock</p>
+                                        </div>
+                                        <p>Ksh 100000 </p>
+                                        <input type="button" value="Edit Product" onclick="deleteProduct(1)">
+                                    </div> -->
+
+                                    
+
+                                    
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- <div id="dc-auth" class="order-view">
+
+                        </div> -->
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div class="footer-content">
+
+
+                    <div class="footer-links">
+                        <h3>Links</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Return Policy</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+
+
+                        </ul>
+                    </div>
+
+
+                    <div class="socials">
+                        <h3>Socials</h3>
+                        <ul>
+                            <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                            <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                            <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                            <li><a href="#"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                        </ul>
+                    </div>
+
+
+                    <div class="company">
+                        <h1>EverSmart</h1>
+                        <p>Best deals every day!</p>
+
+                    </div>
+
+                </div>
+
+                <div class="copyright">
+                    <p>
+                        Copyright &copy; 2024 EverSmart Group. All rights reserved. Made with <ion-icon
+                            name="heart"></ion-icon> by KJ
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

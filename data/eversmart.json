@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": "790703759",
+      "username": "James",
+      "email": "james@gmail.com",
+      "password": "e5uZ'u;J_cfw}he&",
+      "role": "ADM"
+    },
+    {
+      "id": "172273320",
+      "username": "Angela",
+      "email": "angela@gmail.com",
+      "password": "e5uZ'u;J_cfw}he&",
+      "role": "CUST"
+    },
+    {
+      "id": "366247371",
+      "username": "Mike",
+      "email": "mike@gmail.com",
+      "password": "e5uZ'u;J_cfw}he&",
+      "role": "CUST"
+    }
+  ],
+  "products": []
+}
