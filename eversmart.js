@@ -2,245 +2,8 @@
 const baseURL = "http://localhost:3000/"
 
 
-let myCart = [];
-
-// const  products = [];
-
-
-const products = [
-    {
-        id: 1,
-        name: "Denim Jeans",
-        description: "Classic fit jeans with a modern twist, perfect for casual outings.",
-        price: 60 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1715532846484-1b10ddf694d0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fGplYW5zJTIwZm9sZGVkfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Pants",
-        stock: 40,
-    },
-    {
-        id: 2,
-        name: "Graphic T-Shirt",
-        description: "Comfortable and stylish t-shirt with a unique graphic design.",
-        price: 25 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1628068431732-b8d752c52523?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dCUyMHNoaXJ0JTIwZGVzaWdufGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Shirts",
-        stock: 60,
-    },
-    {
-        id: 3,
-        name: "Leather Jacket",
-        description: "Premium leather jacket for a timeless and rugged look.",
-        price: 200 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
-        category: "Jackets",
-        stock: 25,
-    },
-    {
-        id: 4,
-        name: "Polo Shirt",
-        description: "Classic polo shirt made from breathable cotton for everyday wear.",
-        price: 40 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1625910513413-c23b8bb81cba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9sbyUyMHNoaXJ0fGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Shirts",
-        stock: 30,
-    },
-    {
-        id: 5,
-        name: "Cap",
-        description: "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
-        price: 4 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
-        category: "Accessories",
-        stock: 45
-    },
-
-
-    {
-        id: 6,
-        name: "Floral Blouse",
-        description: "Light and airy blouse with a beautiful floral print, perfect for spring and summer.",
-        price: 35 * 25.00,
-        imageUrl: "https://images.pexels.com/photos/7796194/pexels-photo-7796194.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Tops",
-        stock: 25,
-    },
-    {
-        id: 7,
-        name: "Summer Dress",
-        description: "Flowy and comfortable summer dress, perfect for hot days or a night out.",
-        price: 50 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1509755512670-9e7af886e7e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHN1biUyMGRyZXNzfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Dresses",
-        stock: 22,
-    },
-    {
-        id: 8,
-        name: "Classic White T-Shirt",
-        description: "A staple piece for any wardrobe, this classic white t-shirt is both comfortable and stylish.",
-        price: 15 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8V2hpdGUlMjB0JTIwc2hpcnR8ZW58MHwxfDB8fHwy",
-        category: "Tops",
-        stock: 50
-    },
-    {
-        id: 9,
-        name: "Knit Sweater",
-        description: "Warm and cozy knit sweater, perfect for layering on colder days.",
-        price: 55 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1715176531842-7ffda4acdfa9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGtuaXQlMjBzd2VhdGVyfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Sweaters",
-        stock: 30,
-    },
-    {
-        id: 10,
-        name: "Trench Coat",
-        description: "Classic and stylish trench coat, perfect for a timeless and sophisticated look.",
-        price: 120 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fFRyZW5jaCUyMGNvYXR8ZW58MHwxfDB8fHwy",
-        category: "Coats",
-        stock: 15,
-    },
-    {
-        id: 11,
-        name: "Running Shoes",
-        description: "Lightweight and breathable running shoes for ultimate performance.",
-        price: 50 * 25.00,
-        imageUrl: " https://images.unsplash.com/photo-1562183241-840b8af0721e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cnVubmluZyUyMHNob2VzfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Shoes",
-        stock: 50,
-    },
-    {
-        id: 12,
-        name: "Casual Sneakers",
-        description: "Stylish and comfortable sneakers for everyday wear.",
-        price: 80 * 25.00,
-        imageUrl: "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Shoes",
-        stock: 20,
-    },
-    {
-        id: 13,
-        name: "Basketball Shoes",
-        description: "Supportive and high-performance basketball shoes for maximum control.",
-        price: 120 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1613839817782-6c41fef752ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Shoes",
-        stock: 35,
-    },
-    {
-        id: 14,
-        name: "Hiking Boots",
-        description: "Durable and waterproof boots for outdoor adventures.",
-        price: 150 * 25.00,
-        imageUrl: "https://images.unsplash.com/photo-1621996659546-b0dd8b7e57af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGhpa2luZyUyMGJvb3RzfGVufDB8MXwwfHx8Mg%3D%3D",
-        category: "Shoes",
-        stock: 15,
-    },
-
-    {
-        id: 15,
-        name: "Leather Loafers",
-        description: "Sleek and stylish leather loafers for a polished look.",
-        price: 79.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/19556446/pexels-photo-19556446/free-photo-of-black-leather-loafers.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Shoes",
-        stock: 8,
-    },
-
-    {
-        id: 16,
-        name: "High Heel Pumps",
-        description: "Elegant high heel pumps, perfect for formal occasions or a night out.",
-        price: 59.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/4959848/pexels-photo-4959848.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Shoes",
-        stock: 40
-    },
-    {
-        id: 17,
-        name: "Ankle Boots",
-        description: "Stylish ankle boots, perfect for pairing with jeans or a dress.",
-        price: 79.99 * 50,
-        imageUrl: "https://images.unsplash.com/photo-1571489555750-c932b569ef5d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YW5rbGUlMjBib290c3xlbnwwfDF8MHx8fDI%3D",
-        category: "Shoes",
-        stock: 30
-    },
-
-    {
-        id: 18,
-        name: "Strappy Sandals",
-        description: "Trendy strappy sandals, perfect for warm weather and beach outings.",
-        price: 34.99 * 50,
-        imageUrl: "https://images.unsplash.com/photo-1630407332126-70ebb700976b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8U3RyYXBweSUyMFNhbmRhbHN8ZW58MHwxfDB8fHwy",
-        category: "Shoes",
-        stock: 45
-    },
-    {
-        id: 19,
-        name: "Pointed-Toe Pumps",
-        description: "Classic and elegant black pointed-toe pumps with a stiletto heel, perfect for a sophisticated look.",
-        price: 89.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/18935118/pexels-photo-18935118/free-photo-of-pair-of-pumps.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Women's Shoes",
-        stock: 15,
-    },
-    {
-        id: 20,
-        name: "Espadrille Wedges",
-        description: "Chic espadrille wedges, perfect for adding height and style to your summer outfits.",
-        price: 65.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/8125844/pexels-photo-8125844.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Shoes",
-        stock: 35
-    },
-
-    {
-        id: 21,
-        name: "Classic Pullover Hoodie",
-        description: "A comfortable and versatile pullover hoodie, perfect for casual wear or layering.",
-        price: 39.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/6311317/pexels-photo-6311317.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Hoodies",
-        stock: 50,
-    },
-    {
-        id: 22,
-        name: "Zip-Up Hoodie Jacket",
-        description: "A stylish zip-up hoodie jacket with a cozy fleece lining, perfect for chilly days.",
-        price: 49.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/3657429/pexels-photo-3657429.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Hoodies",
-        stock: 35,
-    },
-    {
-        id: 23,
-        name: "Graphic Print Hoodie",
-        description: "A trendy hoodie featuring a bold graphic print, perfect for making a statement.",
-        price: 29.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/10211683/pexels-photo-10211683.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Hoodies",
-        stock: 40,
-    },
-    {
-        id: 24,
-        name: "Oversized Hoodie",
-        description: "A cozy oversized hoodie for maximum comfort and style, perfect for lounging or casual outings.",
-        price: 59.99 * 50,
-        imageUrl: "https://images.pexels.com/photos/16982868/pexels-photo-16982868/free-photo-of-smiling-model-in-an-oversized-brown-hoodie.jpeg?auto=compress&cs=tinysrgb&w=600",
-        category: "Hoodies",
-        stock: 30,
-    },
-    {
-        id: 25,
-        name: "Sherpa-Lined Hoodie",
-        description: "A warm and cozy sherpa-lined hoodie, perfect for colder weather and outdoor activities.",
-        price: 69.99 * 50,
-        imageUrl: "https://images.unsplash.com/photo-1526476148966-98bd039463ea?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fEhvb2RpZXxlbnwwfDF8MHx8fDI%3D",
-        category: "Hoodies",
-        stock: 20,
-    }
-
-];
+// let myCart = [];
+let productsArray = [];
 
 
 //******************************************MAIN CODE BEGINS HERE*************************************************//
@@ -255,23 +18,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartBtn = document.getElementById("app-cart");
     const authBtn = document.getElementById("app-auth");
 
+    const btnProceed=document.getElementById("app-order");
+
 
     const homeView = document.getElementById('dc-home');
     const cartView = document.getElementById('dc-cart');
     const authView = document.getElementById('dc-auth');
     const prodView = document.getElementById('dc-prod');
+    const orderView = document.getElementById('dc-orders');
 
     //   Switch view 
-    const views = [homeView, cartView, authView, prodView];
+    const views = [homeView, cartView, authView, prodView,orderView];
 
     function showView(viewToShow) {
         views.forEach(view => {
             if (view === viewToShow) {
-                if (view === cartView && !isLoggedIn) {
+                // if (view === cartView && !isLoggedIn) {
 
-                    alert("Please log in to access the cart");
-                    showView(homeView);
-                    return;
+                //     alert("Please log in to access the cart");
+                //     showView(homeView);
+                //     return;
+                // }
+
+
+                if (view === cartView) {
+                    loadCartData()
                 }
 
                 view.style.display = 'flex';
@@ -286,15 +57,19 @@ document.addEventListener("DOMContentLoaded", () => {
     cartBtn.addEventListener('click', () => showView(cartView));
 
     authBtn.addEventListener('click', () => showView(authView));
+    btnProceed.addEventListener('click', () => showView(orderView));
 
     cartBtn.onclick = () => {
 
-        loadCartData(myCart)
+        loadCartData();
+
     }
 
     //  Initialize to home view
     // showView(homeView);
-    showView(prodView);
+    // showView(prodView);
+
+    showView(cartView);
 
 
 
@@ -303,29 +78,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 loadAllProducts();
-function loadAllProducts() {
+async function loadAllProducts() {
 
-    const productsTV = document.getElementById("displayProducts")
-    products.forEach((product) => {
+    const url = "http://localhost:3000/products";
+
+    let response = await fetch(url);
+    productsArray = await response.json();
+
+
+
+    const productsTV = document.getElementById("displayProducts");
+
+    for (let prod of productsArray) {
+
+        let formattedPrice = parseFloat(prod.price);
+
+        let priceString = formattedPrice.toFixed(2);
+
 
         productsTV.innerHTML += `
         <div class="product-card">
-            <img src="${product.imageUrl}"
+            <img src="${prod.imageUrl}"
                 alt="product">
             <div class="card-text">
-                <h3>${product.name}</h3>
-                <p>${product.stock} in stock</p>
+                <h3>${prod.name}</h3>
+                <p>${prod.stock} in stock</p>
             </div>
-            <p>Ksh ${product.price.toFixed(2)} </p>
-            <input type="button" value="Add to Cart" onclick="addToCart(${product.id},${product.stock} )">
+            <p>Ksh ${priceString} </p>
+            <input type="button" value="Add to Cart" onclick="addToCart(${prod.id},${prod.stock} )">
         </div>
       `;
 
-    });
+    }
+
 }
 
 
-function addToCart(id, inStock) {
+async function addToCart(id, inStock) {
     let productQuantity = getUserQuantityInput();
 
     if (productQuantity <= 0) {
@@ -337,21 +126,51 @@ function addToCart(id, inStock) {
         return;
     }
 
-    const product = products.find(product => product.id === id);
 
 
+    await fetch('http://localhost:3000/products')  // Replace with your actual server URL
+        .then(response => response.json())
+        .then(data => {
+            const products = data;
+            // console.log(products);  // This will log the entire "products" array
 
-    const cartItem = {
-        id: product.id,
-        imageUrl: product.imageUrl,
-        name: product.name,
-        price: product.price,
-        cartItemSubTotal: product.price * productQuantity,
-        quantity: productQuantity,
-        description: product.description
-    };
+            // Access individual product objects within the array
+            for (const product of products) {
+                if (product.id == id) {
+                    const cartItem = {
+                        id: product.id,
+                        imageUrl: product.imageUrl,
+                        name: product.name,
+                        price: product.price,
+                        cartItemSubTotal: product.price * productQuantity,
+                        quantity: productQuantity,
+                        description: product.description
+                    };
 
-    myCart.push(cartItem);
+                    // myCart.push(cartItem);
+                    sendRequest(cartItem)
+
+                    break;
+                }
+            }
+        })
+        .catch(error => console.error(error));
+
+
+}
+
+async function sendRequest(cart_item) {
+
+    console.log("Passed item", cart_item)
+
+    // Make the POST request to save the added product to the cart
+    await fetch('http://localhost:3000/mycart', {
+        method: "POST",
+        body: JSON.stringify(cart_item),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
 
 
 }
@@ -375,138 +194,242 @@ function getUserQuantityInput() {
 }
 
 
-function loadCartData(myCartArray) {
+function loadCartData() {
+
     console.log("Loading Cart")
     const cartTV = document.getElementById("displayCartItems");
-    myCartArray.forEach((cartItem) => {
-        const existingItem = document.querySelector(`div.cart-item-card img[src="${cartItem.imageUrl}"]`);
 
-        if (existingItem) {
-            // Update the existing cart item
-            existingItem.parentElement.querySelector('span').textContent = cartItem.quantity;
-            existingItem.parentElement.querySelector('h4').textContent = "Total Ksh: " + cartItem.price.toFixed(2) * cartItem.quantity;
-        } else {
-            // Add a new cart item
-            cartTV.innerHTML += `
-                <div class="cart-item-card">
-                    <img src="${cartItem.imageUrl}">
-                    <div class="card-content">
-                        <ion-icon onclick="removeCartItem(${cartItem.id},myCart)" name="trash-outline"></ion-icon>
-                        <h3>${cartItem.name}</h3>
-                        <p>Ksh: ${cartItem.price.toFixed(2)} </p>
-                        <p id="desc">${cartItem.description}<p>
-                        <h4>Sub Total Ksh: ${cartItem.cartItemSubTotal}</h4>
-                        
-                        <!-- <p>Comfortable and stylish t-shirt with a unique graphic design.</p> -->
+    fetch('http://localhost:3000/mycart')  // Replace with your actual server URL
+        .then(response => response.json())
+        .then(data => {
+            const allCartItems = data;
 
-                        <div class="modify-cart">
-                            <input onclick="reduceQuantity(${cartItem.id},myCart)" id="btnMinus" type="button" value="-">
-                            <span>${cartItem.quantity}</span>
-                            <input onclick="increaseQuantity(${cartItem.id},myCart)" id="btnPlus" type="button" value="+">
+            // Access individual product objects within the array
+            for (const cartItem of allCartItems) {
+
+                const existingItem = document.querySelector(`div.cart-item-card img[src="${cartItem.imageUrl}"]`);
+
+                if (existingItem) {
+                    // Update the existing cart item
+                    existingItem.parentElement.querySelector('span').textContent = cartItem.quantity;
+                    existingItem.parentElement.querySelector('h4').textContent = "Total Ksh: " + cartItem.price.toFixed(2) * cartItem.quantity;
+
+
+                } else {
+                    // Add a new cart item
+
+                    let formattedPrice = parseFloat(cartItem.price);
+
+                    let priceString = formattedPrice.toFixed(2);
+
+                    cartTV.innerHTML += `
+                        <div class="cart-item-card">
+                            <img src="${cartItem.imageUrl}">
+                            <div class="card-content">
+                                <ion-icon onclick="removeCartItem(${cartItem.id})" name="trash-outline"></ion-icon>
+                                <h3>${cartItem.name}</h3>
+                                <p>Ksh: ${priceString} </p>
+                                <p id="desc">${cartItem.description}<p>
+                                <h4>Sub Total Ksh: ${cartItem.cartItemSubTotal}</h4>
+           
+                                <div class="modify-cart">
+                                    <input onclick="reduceQuantity(${cartItem.id})" id="btnMinus" type="button" value="-">
+                                    <span>${cartItem.quantity}</span>
+                                    <input onclick="increaseQuantity(${cartItem.id})" id="btnPlus" type="button" value="+">
+                                </div>
+
+                            </div>
                         </div>
-
-                    </div>
-                </div>
-            `;
-        }
-    });
-
-    calculateCartGrandTotal(myCartArray);
-}
-
-function reduceQuantity(id, myCartArray) {
-    myCartArray.forEach(cartItem => {
-        if (cartItem.id === id) {
-            if (cartItem.quantity > 1) {
-                cartItem.quantity -= 1;
-                let newCartSubtotal = cartItem.price * cartItem.quantity
-
-                cartItem.cartItemSubTotal = newCartSubtotal;
-                // console.log("Quantity before", cartItem.quantity);
-                // console.log(cartItem)
-                // console.log(myCartArray);
+                    `;
+                }
 
 
-            } else {
-                alert("Quantity cannot be reduced further");
-                return;
+
+
+
+
+                //console.log(cartItem.name);  // Replace "name" with the actual property you want to access
             }
-        }
-
-        console.log("Quantity after", cartItem.quantity);
-        console.log(cartItem)
-        console.log(myCartArray);
-    });
-
-    // Refresh the layout by calling loadCartData()
-    loadCartData(myCartArray);
+        })
+        .catch(error => console.error(error));
 
 
-
+     calculateCartGrandTotal();
 }
 
-function increaseQuantity(id, myCartArray) {
+// async function getData(url) {
+//     await fetch(url)  // Replace with your actual server URL
+//         .then(response => response.json())
+//         .then(data => {
+//             const resopnseArray = data;
+//             return resopnseArray.json();
+//         })
+//         .catch(error => console.error(error));
+// }
 
 
-    myCartArray.forEach(cartItem => {
-        if (cartItem.id === id) {
-            const product = products.find(product => product.id === id);
 
-            if (cartItem.quantity < product.stock) {
-                cartItem.quantity += 1;
 
-                let newCartSubtotal = cartItem.price * cartItem.quantity
+async function reduceQuantity(id) {
 
-                cartItem.cartItemSubTotal = newCartSubtotal;
-                console.log("Quantity before", cartItem.quantity);
-                console.log(cartItem)
-                console.log(myCartArray);
 
-            } else {
-                alert("Quantity cannot be increased further. Only " + product.stock + " in stock.");
-                cartItem.quantity = product.stock;
+    await fetch('http://localhost:3000/mycart')
+        .then(response => response.json())
+        .then(data => {
+            const allCartItems = data;
+            // Access individual product objects within the array
+            for (const cartItem of allCartItems) {
+
+                if (cartItem.id == id) {
+
+                    if (cartItem.quantity > 1) {
+                        cartItem.quantity -= 1;
+                        let newCartSubtotal = cartItem.price * cartItem.quantity
+
+
+                        const updatedCartItem = {
+                            id: cartItem.id,
+                            imageUrl: cartItem.imageUrl,
+                            name: cartItem.name,
+                            price: cartItem.price,
+                            cartItemSubTotal: newCartSubtotal,
+                            quantity: cartItem.quantity,
+                            description: cartItem.description
+                        };
+                        sendUpdateRequest('http://localhost:3000/mycart/', updatedCartItem);
+
+
+                    } else {
+                        alert("Quantity cannot be reduced further");
+                        return;
+                    }
+                }
+
             }
-        }
-    });
 
-    // Refresh the layout by calling loadCartData()
-    loadCartData(myCartArray);
-}
+        })
+        .catch(error => console.error(error));
 
-function removeCartItem(id, myCartArray) {
-
-    // Find the index of the item with the given id in the cart array
-    const cartItemIndex = myCartArray.findIndex(cartItem => cartItem.id === id);
-
-    // If the item exists in the cart, remove it
-    if (cartItemIndex !== -1) {
-        const cartItem = myCartArray[cartItemIndex];
-        myCart.splice(cartItemIndex, 1);
-
-        // Refresh the cart display
-        loadCartData(myCart);
-
-        // Remove the card from the DOM
-        const cartItemCard = document.querySelector(`div.cart-item-card img[src="${cartItem.imageUrl}"]`);
-        if (cartItemCard) {
-            cartItemCard.parentElement.remove();
-        }
-    }
-
+    // loadCartData();
 
 }
 
-function calculateCartGrandTotal(myCartArray) {
-    let total = 0;
-    myCartArray.forEach(cartItem => {
-        total += cartItem.cartItemSubTotal;
+function sendUpdateRequest(url, { id, ...obj }) {
+
+
+    console.log("sendUpdate request HAS BEEN CALLED");
+    // Make the POST request to save the added product to the cart
+    fetch(url + id, {
+        method: "PUT",
+        body: JSON.stringify(obj),
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
 
-    // Update the HTML content of the cart total element
-    const cartTotalTv = document.getElementById('displayCartGrandTotal');
-    cartTotalTv.innerHTML = "Ksh " + total.toFixed(2);
+}
 
-    return total;
+
+
+async function increaseQuantity(id) {
+
+    let product = {};
+
+    fetch('http://localhost:3000/products/' + id)
+        .then(response => response.json())
+        .then(data => {
+            product = data;
+
+
+
+
+            fetch('http://localhost:3000/mycart/' + id)
+                .then(response => response.json())
+                .then(data => {
+                    const cartItem = data;
+
+                    if (cartItem.quantity < product.stock) {
+                        cartItem.quantity += 1;
+
+                        let newCartSubtotal = cartItem.price * cartItem.quantity
+
+
+                        const updatedCartItem = {
+                            id: cartItem.id,
+                            imageUrl: cartItem.imageUrl,
+                            name: cartItem.name,
+                            price: cartItem.price,
+                            cartItemSubTotal: newCartSubtotal,
+                            quantity: cartItem.quantity,
+                            description: cartItem.description
+                        };
+                        sendUpdateRequest('http://localhost:3000/mycart/', updatedCartItem);
+
+
+                    } else {
+                        alert("Quantity cannot be increased further. Only " + product.stock + " in stock.");
+                        return;
+                    }
+                }
+                );
+
+
+        });
+
+
+}
+
+async function removeCartItem(id) {
+
+    let url = "http://localhost:3000/mycart/" + id;
+
+    await fetch(url, {
+        method: "DELETE"
+    });
+
+
+}
+
+function calculateCartGrandTotal() {
+
+
+    fetch('http://localhost:3000/mycart')
+        .then(response => response.json())
+        .then(data => {
+            const allCartItems = data;
+
+
+            let total = 0;
+            const cartTotalTv = document.getElementById('displayCartGrandTotal');
+
+            // Access individual product objects within the array
+            for (const cartItem of allCartItems) {
+
+                // console.log(cartItem.cartItemSubTotal);
+
+                total += cartItem.cartItemSubTotal;
+                cartTotalTv.innerHTML = "Ksh " + total.toFixed(2);
+            }
+
+
+
+
+
+
+
+        })
+        .catch(error => console.error(error));
+
+
+    // let total = 0;
+    // myCartArray.forEach(cartItem => {
+    //     total += cartItem.cartItemSubTotal;
+    // });
+
+    // // Update the HTML content of the cart total element
+    // const cartTotalTv = document.getElementById('displayCartGrandTotal');
+    // cartTotalTv.innerHTML = "Ksh " + total.toFixed(2);
+
 }
 
 
@@ -871,7 +794,7 @@ async function addProduct() {
                     "Content-Type": "application/json"
                 }
             });
-            //show registration success message
+            //show products success message
             alert("Product added successfully.");
         }
 
@@ -891,7 +814,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 async function viewProductAdmin() {
-    
+
     let url = "http://localhost:3000/products";
     let allProducts = [];
 
@@ -928,7 +851,7 @@ async function viewProductAdmin() {
 
 }
 
-   
+
 
 
 
@@ -938,7 +861,7 @@ async function viewProductAdmin() {
 
 
 async function editProduct(prodID) {
-    let url = "http://localhost:3000/products/"+ prodID
+    let url = "http://localhost:3000/products/" + prodID
 
     let response = await this.fetch(url);
     let prod = await response.json();
@@ -954,6 +877,8 @@ async function editProduct(prodID) {
     productID = prod.id;
 
 }
+
+
 
 async function deleteProduct(productID) {
     let url = "http://localhost:3000/products/" + productID;
