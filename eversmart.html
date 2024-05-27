@@ -18,69 +18,54 @@
     <div class="wrapper">
         <div class="contents">
             <div class="header">
-
-
                 <div class="name-tagline">
                     <h1>EverSmart</h1>
                     <p>Best deals every day!</p>
-                    <!-- <ion-icon name="person-outline"></ion-icon> -->
                 </div>
 
                 <div class="search-bar">
                     <input id="edtSearch" type="text" name="search-bar" placeholder="Search...">
-                    <!-- <input id="btnSearch" type="button" value="Search"> -->
                     <ion-icon id="app-search" name="search-outline"></ion-icon>
                 </div>
 
-
-
                 <div class="links-cart">
-                    <div class="dropdown">
-        
-                        <ion-icon class="menu-icon" id="app-menu" onclick="" name="menu-outline"> </ion-icon>
 
-                        <div class="menu-dropdown-content">
-                            <!-- <a href="#">Products</a>
-                            <a href="#">Orders</a> -->
-                            <!-- <a href="#">Reminders </a>
-                            <a href="#">Planning </a> -->
+                    <div class="menu-dropdown" id="app-menu">
+                        <ion-icon class="menu-icon" name="menu-outline" onclick=" "> </ion-icon>
+                        <div class="menu-dropdown-content" id="">
+                            <a id="app-products" href="#">Products</a>
+                            <a id="app-orders-admin" href="#">Orders</a>
+
                         </div>
-
                     </div>
-
 
                     <ion-icon id="app-home" onclick="" name="home-outline"> </ion-icon>
                     <ion-icon id="app-cart" onclick="" name="cart-outline"> </ion-icon>
                     <ion-icon id="app-auth" name="person-outline"></ion-icon>
-                    <p id="app-user"> </p>
+
+                    <div class="menu-dropdown">
+                        <p id="app-user"> </p>
+
+                        <div class="menu-dropdown-content" id="">
+                            <a id="app-logout" href="#">Logout</a>
+                            <a id="app-orders" href="#">My Orders</a>
+                        </div>
+                    </div>
 
                 </div>
 
             </div>
 
             <div class="body">
-                <!-- <div class="left-nav-pane">
-                    <h3>Categories</h3>
-
-                    <div class="category-card">
-                        <p>Category 1</p>
-                    </div>
-
-                    <div class="category-card">
-                        <p>Category 2</p>
-                    </div>
-
-                </div> -->
 
                 <div class="right-display-port">
                     <div class="dynamic-island">
 
+                        <!-- HOME VIEW -->
                         <div id="dc-home" class="home">
                             <div class="landing-hero">
 
-                                <video
-                                    src="./videos/139,594 Shopping Clothes Stock Videos and Royalty-Free Footage - iStock.mp4"
-                                    autoplay muted loop></video>
+                                <video src="./videos/video1.mp4" autoplay muted loop></video>
 
                                 <h1>Welcome to EverSmart</h1>
                                 <p>EverSmart is your one-stop shop for stylish and affordable clothing.
@@ -112,10 +97,11 @@
 
                         </div>
 
+                        <!-- CART VIEW -->
                         <div id="dc-cart" class="cart-view">
 
                             <div class="cart-left" id="displayCartItems">
-                                <h1>Cart items</h1>
+                                <h1>Cart Items</h1>
 
                                 <!-- <div class="cart-item-card">
                                     <img src="./images/iphone-14.jpg" alt="cart item image">
@@ -142,15 +128,87 @@
                                 <h1>Cart Total</h1>
 
                                 <div class="cart-total">
+                                    <h2>Grand Total</h2>
                                     <h3 id="displayCartGrandTotal">Ksh 0.00</h3>
-                                    <input id="app-order" type="button" value="Order Now">
+                                    <input id="app-order-now" onclick="placeOrder()" type="button" value="Order Now">
                                 </div>
 
                             </div>
 
                         </div>
 
+                        <!-- ORDERS VIEW CUSTOMER -->
+                        <div id="dc-orders" class="order-view">
+                            <div class="order-nav">
+                                <div class="onav-top">
+                                    <h1>My Orders</h1>
 
+                                </div>
+                                <div class="onav-bottom">
+                                    <div class="equal-1">
+                                        <p>Order ID</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Customer Name</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Date</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Quantity</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Status</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Actions</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="order-body" id="displayOrdersCtr">
+                                <!-- 
+                                <div class="order-record">
+                                    <div class="equal-2">
+                                        <p>333818757</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p id="cust-name">Jeff Kiarie</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2024-05-23</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Ksh: 3800.00</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Pending</p>
+                                    </div>
+
+                                    <div id="record-actions" class="equal-2">
+                                        <input id="app-order-deets" type="button" value="Details">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </div>
+
+
+
+                                </div>
+                                 -->
+
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- AUTHENICATION VIEW -->
                         <div id="dc-auth" class="auth-view">
 
                             <div class="auth-left">
@@ -190,24 +248,21 @@
                             </div>
 
                         </div>
-
+                        <!-- PRODUCT VIEW ADMIN-->
                         <div id="dc-prod" class="prod-view">
 
                             <div class="prod-left">
                                 <form action="">
-                                    <h1>Add Product</h1>
-                                
+                                    <h1 id="form-title">Add Product</h1>
+
                                     <input id="prodName" type="text" name="username" placeholder="Product Name">
                                     <input id="prodDesc" type="text" name="email" placeholder="Description">
                                     <input id="prodPrice" type="text" name="username" placeholder="Price">
-                                    <input id="prodImgUrl" type="text" name="email" placeholder="URL">
+                                    <input id="prodImgUrl" type="text" name="email" placeholder="Image URL">
                                     <input id="prodCat" type="text" name="username" placeholder="Category">
                                     <input id="prodStock" type="text" name="email" placeholder="Stock">
 
-                        
                                     <input id="btnAddProd" type="button" value="Add Product" onclick="">
-
-
                                 </form>
 
                             </div>
@@ -229,21 +284,141 @@
                                         <input type="button" value="Edit Product" onclick="deleteProduct(1)">
                                     </div> -->
 
-                                    
 
-                                    
+
+
 
                                 </div>
 
                             </div>
                         </div>
 
-                        <div id="dc-orders" class="order-view">
+                        <!-- ORDERS VIEW ADMIN -->
+                        <div id="dc-orders-admin" class="order-view-admin">
+
+                            <div class="order-nav">
+                                <div class="onav-top">
+                                    <h1>All Orders</h1>
+
+                                </div>
+                                <div class="onav-bottom">
+                                    <div class="equal-1">
+                                        <p>Order ID</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Customer Name</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Date</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Quantity</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Total</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Status</p>
+                                    </div>
+                                    <div class="equal-1">
+                                        <p>Actions</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="order-body" id="displayOrdersAdmin">
+
+
+                                <!-- <div class="order-record">
+                                    <div class="equal-2">
+                                        <p>333818757</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p id="cust-name">Jeff Kiarie</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2024-05-23</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Ksh: 3800.00</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Pending</p>
+                                    </div>
+
+                                    <div id="record-actions" class="equal-2">
+                                        <input id="app-order-deets" type="button" value="Details">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </div>
+
+
+
+                                </div> -->
+
+                                <!-- <div class="order-record">
+                                    <div class="equal-2">
+                                        <p>333818757</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p id="cust-name">Moses Otieno</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2024-05-23</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Ksh: 3800.00</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Pending</p>
+                                    </div>
+
+                                    <div id="record-actions" class="equal-2">
+                                        <input id="app-order-deets" type="button" value="Details">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="order-record">
+                                    <div class="equal-2">
+                                        <p>333818757</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p id="cust-name">Brenda Mwende</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2024-05-23</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>2</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Ksh: 3800.00</p>
+                                    </div>
+                                    <div class="equal-2">
+                                        <p>Pending</p>
+                                    </div>
+
+                                    <div id="record-actions" class="equal-2">
+                                        <input id="app-order-deets" type="button" value="Details">
+                                        <ion-icon name="trash-outline"></ion-icon>
+                                    </div>
+
+
+
+                                </div> -->
+
+                            </div>
 
                         </div>
-
-
-
 
                     </div>
                 </div>
@@ -295,7 +470,7 @@
                 <div class="copyright">
                     <p>
                         Copyright &copy; 2024 EverSmart Group. All rights reserved. Made with <ion-icon
-                            name="heart"></ion-icon> by KJ
+                            name="heart"></ion-icon> by KJ & EM
                     </p>
 
                 </div>

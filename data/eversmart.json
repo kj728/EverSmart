@@ -1,6 +1,13 @@
 {
   "users": [
     {
+      "id": "790745678",
+      "username": "Esther",
+      "email": "esther@gmail.com",
+      "password": "e^3DZ'u;J_cfw}he&",
+      "role": "ADM"
+    },
+    {
       "id": "790703759",
       "username": "James",
       "email": "james@gmail.com",
@@ -11,22 +18,22 @@
       "id": "172273320",
       "username": "Angela",
       "email": "angela@gmail.com",
-      "password": "e5uZ'u;J_cfw}he&",
-      "role": "CUST"
-    },
-    {
-      "id": "366247371",
-      "username": "Mike",
-      "email": "mike@gmail.com",
-      "password": "e5uZ'u;J_cfw}he&",
-      "role": "CUST"
+      "password": "cfw}he&e5uZ'u;J_",
+      "role": "CTR"
     },
     {
       "id": "193597069",
       "username": "Joe",
       "email": "joe@gmail.com",
       "password": "N-!J9t=9T>jUFUx",
-      "role": "CUST"
+      "role": "CTR"
+    },
+    {
+      "id": "631556788",
+      "username": "Mike",
+      "email": "mike@gmail.com",
+      "password": "%9Wh)BSM^!f6H6S",
+      "role": "CTR"
     }
   ],
   "products": [
@@ -34,19 +41,28 @@
       "id": "1",
       "name": "Denim Jeans",
       "description": "Classic fit jeans with a modern twist, perfect for casual outings.",
-      "price": 1500,
+      "price": "1500",
       "imageUrl": "https://images.unsplash.com/photo-1715532846484-1b10ddf694d0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fGplYW5zJTIwZm9sZGVkfGVufDB8MXwwfHx8Mg%3D%3D",
       "category": "Pants",
-      "stock": 40
+      "stock": "40"
     },
     {
       "id": "2",
-      "name": "Graphic T- 2",
+      "name": "Graphic T- Shirt",
       "description": "Comfortable and stylish t-shirt with a unique graphic design.",
       "price": "625",
       "imageUrl": "https://images.unsplash.com/photo-1628068431732-b8d752c52523?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dCUyMHNoaXJ0JTIwZGVzaWdufGVufDB8MXwwfHx8Mg%3D%3D",
       "category": "Shirts",
       "stock": "60"
+    },
+    {
+      "id": "3",
+      "name": "Leather Jacket",
+      "description": "Premium leather jacket for a timeless and rugged look.",
+      "price": 5000,
+      "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
+      "category": "Jackets",
+      "stock": 23
     },
     {
       "id": "4",
@@ -127,7 +143,7 @@
       "price": 2000,
       "imageUrl": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
       "category": "Shoes",
-      "stock": 20
+      "stock": 16
     },
     {
       "id": "13",
@@ -260,7 +276,7 @@
       "name": "Quartz watch",
       "description": "brilliant watch",
       "price": "20000",
-      "imageUrl": "https://images.unsplash.com/photo-1651321224961-ed2168d0cd00?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8UXVhcnR6JTIwd2F0Y2h8ZW58MHwxfDB8fHwy",
+      "imageUrl": "https://images.unsplash.com/photo-1530784199-de226bc25605?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAyfHxRdWFydHolMjB3YXRjaHxlbnwwfDF8MHx8fDI%3D",
       "category": "watch",
       "stock": "24"
     },
@@ -269,29 +285,465 @@
       "name": "Tissot Watch",
       "description": "A good watch",
       "price": "60000",
-      "imageUrl": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8VGFnJTIwaGV1ciUyMHdhdGNofGVufDB8MXwwfHx8Mg%3D%3D",
+      "imageUrl": "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGlzc290JTIwd2F0Y2h8ZW58MHwxfDB8fHwy",
       "category": "watch",
       "stock": "25"
-    }
-  ],
-  "mycart": [
-    {
-      "imageUrl": "https://images.pexels.com/photos/7796194/pexels-photo-7796194.jpeg?auto=compress&cs=tinysrgb&w=600",
-      "name": "Floral Blouse",
-      "price": 875,
-      "cartItemSubTotal": 3500,
-      "quantity": 4,
-      "description": "Light and airy blouse with a beautiful floral print, perfect for spring and summer.",
-      "id": "6"
     },
     {
-      "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
-      "name": "Cap",
-      "price": "100",
-      "cartItemSubTotal": 300,
+      "id": "927586416",
+      "name": "Apple Watch",
+      "description": "A good watch",
+      "price": "50000",
+      "imageUrl": "https://images.unsplash.com/photo-1554116154-e733de92fe4b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fEFwcGxlJTIwd2F0Y2h8ZW58MHwxfDB8fHwy",
+      "category": "Watches",
+      "stock": "15"
+    },
+    {
+      "id": "441095233",
+      "name": "Timex Watch",
+      "description": "A good watch",
+      "price": "60000",
+      "imageUrl": "https://images.unsplash.com/photo-1708651145401-6be804cd02d4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dGltZXglMjB3YXRjaHxlbnwwfDF8MHx8fDI%3D",
+      "category": "Watches",
+      "stock": "15"
+    }
+  ],
+  "carts": [
+    {
+      "id": "631556788",
+      "items": []
+    },
+    {
+      "id": "790703759",
+      "items": []
+    },
+    {
+      "id": "790745678",
+      "items": []
+    },
+    {
+      "id": "172273320",
+      "items": []
+    }
+  ],
+  "orders": [
+    {
+      "id": "16482916",
+      "customerName": "Joe",
+      "customerID": "193597069",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 2600,
       "quantity": 3,
-      "description": "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
-      "id": "5"
+      "items": [
+        {
+          "imageUrl": "https://images.unsplash.com/photo-1509755512670-9e7af886e7e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHN1biUyMGRyZXNzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Summer Dress",
+          "price": 1250,
+          "cartItemSubTotal": 2500,
+          "quantity": 2,
+          "description": "Flowy and comfortable summer dress, perfect for hot days or a night out.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          },
+          "id": "7"
+        },
+        {
+          "id": "5",
+          "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Cap",
+          "price": "100",
+          "cartItemSubTotal": 100,
+          "quantity": 1,
+          "description": "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "235796186",
+      "customerName": "Joe",
+      "customerID": "193597069",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 2600,
+      "quantity": 3,
+      "items": [
+        {
+          "imageUrl": "https://images.unsplash.com/photo-1509755512670-9e7af886e7e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHN1biUyMGRyZXNzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Summer Dress",
+          "price": 1250,
+          "cartItemSubTotal": 2500,
+          "quantity": 2,
+          "description": "Flowy and comfortable summer dress, perfect for hot days or a night out.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          },
+          "id": "7"
+        },
+        {
+          "id": "5",
+          "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Cap",
+          "price": "100",
+          "cartItemSubTotal": 100,
+          "quantity": 1,
+          "description": "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "737731758",
+      "customerName": "Joe",
+      "customerID": "193597069",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 8600,
+      "quantity": 6,
+      "items": [
+        {
+          "imageUrl": "https://images.unsplash.com/photo-1509755512670-9e7af886e7e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHN1biUyMGRyZXNzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Summer Dress",
+          "price": 1250,
+          "cartItemSubTotal": 2500,
+          "quantity": 2,
+          "description": "Flowy and comfortable summer dress, perfect for hot days or a night out.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          },
+          "id": "7"
+        },
+        {
+          "id": "5",
+          "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Cap",
+          "price": "100",
+          "cartItemSubTotal": 100,
+          "quantity": 1,
+          "description": "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          }
+        },
+        {
+          "id": "12",
+          "imageUrl": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Casual Sneakers",
+          "price": 2000,
+          "cartItemSubTotal": 6000,
+          "quantity": 3,
+          "description": "Stylish and comfortable sneakers for everyday wear.",
+          "placedby": {
+            "id": "193597069",
+            "username": "Joe"
+          }
+        }
+      ]
+    },
+    {
+      "id": "879280058",
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 7999,
+      "quantity": 2,
+      "items": [
+        {
+          "imageUrl": "https://images.unsplash.com/photo-1571489555750-c932b569ef5d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YW5rbGUlMjBib290c3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Ankle Boots",
+          "price": 3999.5,
+          "cartItemSubTotal": 7999,
+          "quantity": 2,
+          "description": "Stylish ankle boots, perfect for pairing with jeans or a dress.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          },
+          "id": "17"
+        }
+      ]
+    },
+    {
+      "id": "657593968",
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 4499.5,
+      "quantity": 1,
+      "items": [
+        {
+          "id": "19",
+          "imageUrl": "https://images.pexels.com/photos/18935118/pexels-photo-18935118/free-photo-of-pair-of-pumps.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Pointed-Toe Pumps",
+          "price": 4499.5,
+          "cartItemSubTotal": 4499.5,
+          "quantity": 1,
+          "description": "Classic and elegant black pointed-toe pumps with a stiletto heel, perfect for a sophisticated look.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        }
+      ]
+    },
+    {
+      "id": "405772200",
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-05-25",
+      "status": "Pending",
+      "total": 5000,
+      "quantity": 1,
+      "items": [
+        {
+          "id": "3",
+          "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
+          "name": "Leather Jacket",
+          "price": 5000,
+          "cartItemSubTotal": 5000,
+          "quantity": 1,
+          "description": "Premium leather jacket for a timeless and rugged look.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        }
+      ]
+    },
+    {
+      "id": "930791107",
+      "customerName": "Mike",
+      "customerID": "631556788",
+      "orderDate": "2024-05-26",
+      "status": "Pending",
+      "total": 875,
+      "quantity": 1,
+      "items": [
+        {
+          "id": "6",
+          "imageUrl": "https://images.pexels.com/photos/7796194/pexels-photo-7796194.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Floral Blouse",
+          "price": 875,
+          "cartItemSubTotal": 875,
+          "quantity": 1,
+          "description": "Light and airy blouse with a beautiful floral print, perfect for spring and summer.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        }
+      ]
+    },
+    {
+      "id": 955385830,
+      "customerName": "Mike",
+      "customerID": "631556788",
+      "orderDate": "2024-05-26",
+      "status": "Pending",
+      "total": 7000,
+      "quantity": 4,
+      "items": [
+        {
+          "id": "12",
+          "imageUrl": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Casual Sneakers",
+          "price": 2000,
+          "cartItemSubTotal": 6000,
+          "quantity": 3,
+          "description": "Stylish and comfortable sneakers for everyday wear.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        },
+        {
+          "id": "4",
+          "imageUrl": "https://images.unsplash.com/photo-1625910513413-c23b8bb81cba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cG9sbyUyMHNoaXJ0fGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Polo Shirt",
+          "price": 1000,
+          "cartItemSubTotal": 1000,
+          "quantity": 1,
+          "description": "Classic polo shirt made from breathable cotton for everyday wear.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        }
+      ]
+    },
+    {
+      "id": 426968089,
+      "customerName": "Mike",
+      "customerID": "631556788",
+      "orderDate": "2024-05-26",
+      "status": "Pending",
+      "total": 10749.5,
+      "quantity": 3,
+      "items": [
+        {
+          "id": "14",
+          "imageUrl": "https://images.unsplash.com/photo-1621996659546-b0dd8b7e57af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGhpa2luZyUyMGJvb3RzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Hiking Boots",
+          "price": 3750,
+          "cartItemSubTotal": 3750,
+          "quantity": 1,
+          "description": "Durable and waterproof boots for outdoor adventures.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        },
+        {
+          "id": "15",
+          "imageUrl": "https://images.pexels.com/photos/19556446/pexels-photo-19556446/free-photo-of-black-leather-loafers.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Leather Loafers",
+          "price": 3999.5,
+          "cartItemSubTotal": 3999.5,
+          "quantity": 1,
+          "description": "Sleek and stylish leather loafers for a polished look.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        },
+        {
+          "id": "13",
+          "imageUrl": "https://images.unsplash.com/photo-1613839817782-6c41fef752ff?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFza2V0YmFsbCUyMHNob2VzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Basketball Shoes",
+          "price": 3000,
+          "cartItemSubTotal": 3000,
+          "quantity": 1,
+          "description": "Supportive and high-performance basketball shoes for maximum control.",
+          "placedby": {
+            "id": "631556788",
+            "username": "Mike"
+          }
+        }
+      ]
+    },
+    {
+      "id": 447333591,
+      "customerName": "Esther",
+      "customerID": "790745678",
+      "orderDate": "2024-05-27",
+      "status": "Pending",
+      "total": 5249.5,
+      "quantity": 2,
+      "items": [
+        {
+          "id": "7",
+          "imageUrl": "https://images.unsplash.com/photo-1509755512670-9e7af886e7e9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjN8fHN1biUyMGRyZXNzfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Summer Dress",
+          "price": 1250,
+          "cartItemSubTotal": 1250,
+          "quantity": 1,
+          "description": "Flowy and comfortable summer dress, perfect for hot days or a night out.",
+          "placedby": {
+            "id": "790745678",
+            "username": "Esther"
+          }
+        },
+        {
+          "id": "17",
+          "imageUrl": "https://images.unsplash.com/photo-1571489555750-c932b569ef5d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YW5rbGUlMjBib290c3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Ankle Boots",
+          "price": 3999.5,
+          "cartItemSubTotal": 3999.5,
+          "quantity": 1,
+          "description": "Stylish ankle boots, perfect for pairing with jeans or a dress.",
+          "placedby": {
+            "id": "790745678",
+            "username": "Esther"
+          }
+        }
+      ]
+    },
+    {
+      "id": 793228690,
+      "customerName": "Angela",
+      "customerID": "172273320",
+      "orderDate": "2024-05-27",
+      "status": "Pending",
+      "total": 5874.5,
+      "quantity": 2,
+      "items": [
+        {
+          "id": "19",
+          "imageUrl": "https://images.pexels.com/photos/18935118/pexels-photo-18935118/free-photo-of-pair-of-pumps.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Pointed-Toe Pumps",
+          "price": 4499.5,
+          "cartItemSubTotal": 4499.5,
+          "quantity": 1,
+          "description": "Classic and elegant black pointed-toe pumps with a stiletto heel, perfect for a sophisticated look.",
+          "placedby": {
+            "id": "172273320",
+            "username": "Angela"
+          }
+        },
+        {
+          "id": "9",
+          "imageUrl": "https://images.unsplash.com/photo-1715176531842-7ffda4acdfa9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGtuaXQlMjBzd2VhdGVyfGVufDB8MXwwfHx8Mg%3D%3D",
+          "name": "Knit Sweater",
+          "price": 1375,
+          "cartItemSubTotal": 1375,
+          "quantity": 1,
+          "description": "Warm and cozy knit sweater, perfect for layering on colder days.",
+          "placedby": {
+            "id": "172273320",
+            "username": "Angela"
+          }
+        }
+      ]
+    },
+    {
+      "id": 389425149,
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-05-27",
+      "status": "Pending",
+      "total": 9000,
+      "quantity": 3,
+      "items": [
+        {
+          "id": "3",
+          "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
+          "name": "Leather Jacket",
+          "price": 5000,
+          "cartItemSubTotal": 5000,
+          "quantity": 1,
+          "description": "Premium leather jacket for a timeless and rugged look.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        },
+        {
+          "id": "12",
+          "imageUrl": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600",
+          "name": "Casual Sneakers",
+          "price": 2000,
+          "cartItemSubTotal": 4000,
+          "quantity": 2,
+          "description": "Stylish and comfortable sneakers for everyday wear.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        }
+      ]
     }
   ]
 }

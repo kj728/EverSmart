@@ -10,39 +10,96 @@ let productsArray = [];
 
 let isLoggedIn = false;
 let currentUser = {}
+retrieveUserCredentialsSessionStorage();
+const userNameTv = document.getElementById("app-user");
+const menu = document.getElementById('app-menu');
+
+let USER_ID; /// global user identifier
+
+// Check if the user is logged in
+if (currentUser) {
+    // Display the username
+    userNameTv.textContent = currentUser.username;
+    USER_ID = currentUser.id;
+
+    if (currentUser.role == "ADM") {
+        menu.style.display = "block";
+    } else {
+        menu.style.display = "none";
+    }
+
+} else {
+    // Hide the username element
+    userNameTv.style.display = "none";
+}
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async (e) => {
+    e.preventDefault();
+    //create on behalf of the user a cart
+    if (currentUser) {
+        createCartIfNotExists(USER_ID);
+    }
 
+    /**
+     * Event listener for navigation buttons.
+     * Shows the corresponding view based on the clicked button.
+     */
     const homeBtn = document.getElementById("app-home");
     const cartBtn = document.getElementById("app-cart");
     const authBtn = document.getElementById("app-auth");
+    const productsBtn = document.getElementById("app-products");
+    const myOrdersBtn = document.getElementById("app-orders");
+    const adminOrdersBtn = document.getElementById("app-orders-admin");
 
-    const btnProceed=document.getElementById("app-order");
 
-
+    /**
+     * HTML elements representing the views.
+     */
     const homeView = document.getElementById('dc-home');
     const cartView = document.getElementById('dc-cart');
     const authView = document.getElementById('dc-auth');
     const prodView = document.getElementById('dc-prod');
-    const orderView = document.getElementById('dc-orders');
+    const ordersView = document.getElementById('dc-orders');
+    const adminOrdersView = document.getElementById('dc-orders-admin');
 
-    //   Switch view 
-    const views = [homeView, cartView, authView, prodView,orderView];
+
+    /**
+     * Array of HTML elements representing the views.
+     */
+    const views = [homeView, cartView, authView, prodView, ordersView, adminOrdersView];
+
+    /**
+     * Function to show a specific view and hide the others.
+     * @param {HTMLElement} viewToShow - The view to be shown.
+     */
+
 
     function showView(viewToShow) {
         views.forEach(view => {
+
+
             if (view === viewToShow) {
-                // if (view === cartView && !isLoggedIn) {
-
-                //     alert("Please log in to access the cart");
-                //     showView(homeView);
-                //     return;
-                // }
-
-
+                if (view === cartView && !currentUser) {
+                    alert("Please log in to access the cart");
+                    showView(homeView);
+                    return;
+                }
                 if (view === cartView) {
-                    loadCartData()
+                    loadCartData();
+                }
+                if (view === prodView) {
+                    viewProductAdmin();
+                }
+                if (view === homeView) {
+
+                }
+                if (view === ordersView) {
+                    loadCtrOrders();
+                }
+
+                if (view == adminOrdersView) {
+                    loadAdminOrders();
                 }
 
                 view.style.display = 'flex';
@@ -53,30 +110,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     homeBtn.addEventListener('click', () => showView(homeView));
-
     cartBtn.addEventListener('click', () => showView(cartView));
-
     authBtn.addEventListener('click', () => showView(authView));
-    btnProceed.addEventListener('click', () => showView(orderView));
+    myOrdersBtn.addEventListener('click', () => showView(ordersView));
 
-    cartBtn.onclick = () => {
+    productsBtn.addEventListener('click', () => showView(prodView));
+    adminOrdersBtn.addEventListener('click', () => showView(adminOrdersView));
 
-        loadCartData();
+    // Initialize to home view by default
+    showView(homeView);
 
-    }
-
-    //  Initialize to home view
-    // showView(homeView);
-    // showView(prodView);
-
-    showView(cartView);
-
-
-
+    //clear all inputs
+    clearAllInputs();
 });
 
 
+function clearAllInputs() {
+    //clear all inputs
+    const textInputs = document.querySelectorAll('input[type="text"]');
+    textInputs.forEach(input => {
+        input.value = '';
+    });
+    const passInputs = document.querySelectorAll('input[type="password"]');
+    passInputs.forEach(input => {
+        input.value = '';
+    });
+}
 
+
+//------------------------------------------HOME VIEW METHODS---------------------------------------------
 loadAllProducts();
 async function loadAllProducts() {
 
@@ -104,7 +166,7 @@ async function loadAllProducts() {
                 <h3>${prod.name}</h3>
                 <p>${prod.stock} in stock</p>
             </div>
-            <p>Ksh ${priceString} </p>
+            <p>Ksh: ${priceString} </p>
             <input type="button" value="Add to Cart" onclick="addToCart(${prod.id},${prod.stock} )">
         </div>
       `;
@@ -113,66 +175,25 @@ async function loadAllProducts() {
 
 }
 
+// Function to create a cart for a user if it doesn't exist
+async function createCartIfNotExists(userId) {
 
-async function addToCart(id, inStock) {
-    let productQuantity = getUserQuantityInput();
+    const baseUrl = 'http://localhost:3000';
+    // Check if the cart exists
+    const response = await fetch(`${baseUrl}/carts?id=${userId}`);
+    const carts = await response.json();
 
-    if (productQuantity <= 0) {
-        alert("Please enter a valid quantity");
-        return;
+    // If cart doesn't exist, create it
+    if (carts.length === 0) {
+        const newCart = { id: userId, items: [] };
+        await fetch(`${baseUrl}/carts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCart)
+        });
     }
-    if (productQuantity > inStock) {
-        alert("Sorry, we only have " + inStock + " in stock");
-        return;
-    }
-
-
-
-    await fetch('http://localhost:3000/products')  // Replace with your actual server URL
-        .then(response => response.json())
-        .then(data => {
-            const products = data;
-            // console.log(products);  // This will log the entire "products" array
-
-            // Access individual product objects within the array
-            for (const product of products) {
-                if (product.id == id) {
-                    const cartItem = {
-                        id: product.id,
-                        imageUrl: product.imageUrl,
-                        name: product.name,
-                        price: product.price,
-                        cartItemSubTotal: product.price * productQuantity,
-                        quantity: productQuantity,
-                        description: product.description
-                    };
-
-                    // myCart.push(cartItem);
-                    sendRequest(cartItem)
-
-                    break;
-                }
-            }
-        })
-        .catch(error => console.error(error));
-
-
-}
-
-async function sendRequest(cart_item) {
-
-    console.log("Passed item", cart_item)
-
-    // Make the POST request to save the added product to the cart
-    await fetch('http://localhost:3000/mycart', {
-        method: "POST",
-        body: JSON.stringify(cart_item),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-
-
 }
 
 function getUserQuantityInput() {
@@ -193,253 +214,435 @@ function getUserQuantityInput() {
     return quantity;
 }
 
+async function addToCart(prodId, inStock) {
+    let productQuantity = getUserQuantityInput();
 
-function loadCartData() {
+    if (productQuantity <= 0) {
+        alert("Please enter a valid quantity");
+        return;
+    }
+    if (productQuantity > inStock) {
+        alert("Sorry, we only have " + inStock + " in stock");
+        return;
+    }
 
+    await fetch('http://localhost:3000/products')  // server URL
+        .then(response => response.json())
+        .then(data => {
+            const products = data;
+
+            // Access individual product objects within the array
+            for (const product of products) {
+                if (product.id == prodId) {
+
+                    if (currentUser) {
+
+                        const cartItem = {
+                            id: product.id,
+                            imageUrl: product.imageUrl,
+                            name: product.name,
+                            price: product.price,
+                            cartItemSubTotal: product.price * productQuantity,
+                            quantity: productQuantity,
+                            description: product.description,
+                            placedby: {
+                                id: currentUser.id,
+                                username: currentUser.username,
+                            }
+                        };
+
+                        // let url = 'http://localhost:3000/carts';
+
+                        // sendPostRequest(url, cartItem)
+                        sendProductToCart(USER_ID, cartItem)
+
+                    } else {
+                        console.log("Something went wrong")
+                        alert('Please sign in and try again')
+                    }
+
+                    break;
+                }
+            }
+
+
+
+        })
+        .catch(error => console.error(error));
+
+}
+
+async function sendProductToCart(userId, cartItem) {
+
+
+    // Fetch the user's cart
+    const response = await fetch(`http://localhost:3000/carts?id=${userId}`);
+    const carts = await response.json();
+    let mycart = carts[0];
+    // Add the cartitem to the cart
+    mycart.items.push(cartItem);
+
+    // Update the cart in the server
+    await fetch(`http://localhost:3000/carts/${mycart.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mycart)
+    });
+
+
+}
+
+//------------------------------------------CART VIEW METHODS---------------------------------------------
+//creat an array of current user cart items
+let userCartItems = [];
+// userCartItems.length = 0;
+async function loadCartData() {
     console.log("Loading Cart")
     const cartTV = document.getElementById("displayCartItems");
 
-    fetch('http://localhost:3000/mycart')  // Replace with your actual server URL
-        .then(response => response.json())
-        .then(data => {
-            const allCartItems = data;
 
-            // Access individual product objects within the array
-            for (const cartItem of allCartItems) {
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
+    let allCartItems = carts[0].items;
 
-                const existingItem = document.querySelector(`div.cart-item-card img[src="${cartItem.imageUrl}"]`);
+    // Access individual product objects within the array
+    for (const cartItem of allCartItems) {
 
-                if (existingItem) {
-                    // Update the existing cart item
-                    existingItem.parentElement.querySelector('span').textContent = cartItem.quantity;
-                    existingItem.parentElement.querySelector('h4').textContent = "Total Ksh: " + cartItem.price.toFixed(2) * cartItem.quantity;
+        // add the items that the current user has placed
+        userCartItems.push(cartItem);
 
+        const existingItem = document.querySelector(`div.cart-item-card img[src="${cartItem.imageUrl}"]`);
+        if (existingItem) {
+            // Update the existing cart item
+            let totalPrice = cartItem.price * cartItem.quantity;
+            let formattedPrice = parseFloat(totalPrice);
+            let priceString = formattedPrice.toFixed(2);
 
-                } else {
-                    // Add a new cart item
+            existingItem.parentElement.querySelector('span').textContent = cartItem.quantity;
+            existingItem.parentElement.querySelector('h4').textContent = "Total Ksh: " + priceString;
 
-                    let formattedPrice = parseFloat(cartItem.price);
+        } else {
+            // Add a new cart item to display
+            let formattedPrice = parseFloat(cartItem.price);
+            let priceString = formattedPrice.toFixed(2);
 
-                    let priceString = formattedPrice.toFixed(2);
-
-                    cartTV.innerHTML += `
-                        <div class="cart-item-card">
-                            <img src="${cartItem.imageUrl}">
-                            <div class="card-content">
-                                <ion-icon onclick="removeCartItem(${cartItem.id})" name="trash-outline"></ion-icon>
-                                <h3>${cartItem.name}</h3>
-                                <p>Ksh: ${priceString} </p>
-                                <p id="desc">${cartItem.description}<p>
-                                <h4>Sub Total Ksh: ${cartItem.cartItemSubTotal}</h4>
-           
-                                <div class="modify-cart">
-                                    <input onclick="reduceQuantity(${cartItem.id})" id="btnMinus" type="button" value="-">
-                                    <span>${cartItem.quantity}</span>
-                                    <input onclick="increaseQuantity(${cartItem.id})" id="btnPlus" type="button" value="+">
-                                </div>
-
-                            </div>
+            cartTV.innerHTML += `
+                <div class="cart-item-card">
+                    <img src="${cartItem.imageUrl}">
+                    <div class="card-content">
+                        <ion-icon onclick="removeCartItem(${cartItem.id})" name="trash-outline"></ion-icon>
+                        <h3>${cartItem.name}</h3>
+                        <p>Ksh: ${priceString} </p>
+                        <p id="desc">${cartItem.description}<p>
+                        <h4>Sub Total Ksh: ${cartItem.cartItemSubTotal}</h4>
+   
+                        <div class="modify-cart">
+                            <input onclick="reduceQuantity(${cartItem.id})" id="btnMinus" type="button" value="-">
+                            <span>${cartItem.quantity}</span>
+                            <input onclick="increaseQuantity(${cartItem.id})" id="btnPlus" type="button" value="+">
                         </div>
-                    `;
-                }
 
-
-
-
-
-
-                //console.log(cartItem.name);  // Replace "name" with the actual property you want to access
-            }
-        })
-        .catch(error => console.error(error));
-
-
-     calculateCartGrandTotal();
+                    </div>
+                </div>
+            `;
+        }
+    }
+    calculateCartGrandTotal();
 }
 
-// async function getData(url) {
-//     await fetch(url)  // Replace with your actual server URL
-//         .then(response => response.json())
-//         .then(data => {
-//             const resopnseArray = data;
-//             return resopnseArray.json();
-//         })
-//         .catch(error => console.error(error));
-// }
+async function updateProductQuantity(prodID, obj) {
+
+    console.log("Updating product quantity")
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
+    mycart = carts[0];
+    let allCartItems = mycart.items;
+    // Access individual product objects within the array
+    let productIndex;
+
+    for (let i = 0; i < allCartItems.length; i++) {
+        if (allCartItems[i].id == prodID) {
+            productIndex = i;
+            break;
+        }
+    }
+
+    mycart.items[productIndex] = obj;
+
+    // Update the cart in the server
+    await fetch(`http://localhost:3000/carts/${mycart.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mycart)
+    });
+
+}
+
+async function reduceQuantity(prodID) {
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
+    mycart = carts[0];
+    let allCartItems = mycart.items;
+    // Access individual product objects within the array
+    for (const cartItem of allCartItems) {
+
+        if (cartItem.id == prodID) {
+
+            if (cartItem.quantity > 1) {
+                cartItem.quantity -= 1;
+                let newCartSubtotal = cartItem.price * cartItem.quantity
 
 
+                const updatedCartItem = {
+                    id: cartItem.id,
+                    imageUrl: cartItem.imageUrl,
+                    name: cartItem.name,
+                    price: cartItem.price,
+                    cartItemSubTotal: newCartSubtotal,
+                    quantity: cartItem.quantity,
+                    description: cartItem.description,
+                    placedby: {
+                        id: currentUser.id,
+                        username: currentUser.username,
+                    }
+                };
+                updateProductQuantity(prodID, updatedCartItem)
 
+            } else {
+                alert("Quantity cannot be reduced further");
+                return;
+            }
+        }
 
-async function reduceQuantity(id) {
+    }
 
-
-    await fetch('http://localhost:3000/mycart')
+}
+async function increaseQuantity(prodID) {
+    let product = {};
+    fetch('http://localhost:3000/products/' + prodID)
         .then(response => response.json())
         .then(data => {
-            const allCartItems = data;
-            // Access individual product objects within the array
-            for (const cartItem of allCartItems) {
-
-                if (cartItem.id == id) {
-
-                    if (cartItem.quantity > 1) {
-                        cartItem.quantity -= 1;
-                        let newCartSubtotal = cartItem.price * cartItem.quantity
+            product = data;
 
 
-                        const updatedCartItem = {
-                            id: cartItem.id,
-                            imageUrl: cartItem.imageUrl,
-                            name: cartItem.name,
-                            price: cartItem.price,
-                            cartItemSubTotal: newCartSubtotal,
-                            quantity: cartItem.quantity,
-                            description: cartItem.description
-                        };
-                        sendUpdateRequest('http://localhost:3000/mycart/', updatedCartItem);
+        });
 
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
 
-                    } else {
-                        alert("Quantity cannot be reduced further");
-                        return;
+    mycart = carts[0];
+
+    let allCartItems = mycart.items;
+
+    // Access individual product objects within the array
+    for (const cartItem of allCartItems) {
+
+        if (cartItem.id == prodID) {
+
+            if (cartItem.quantity < product.stock) {
+                cartItem.quantity += 1;
+
+                let newCartSubtotal = cartItem.price * cartItem.quantity
+                const updatedCartItem = {
+                    id: cartItem.id,
+                    imageUrl: cartItem.imageUrl,
+                    name: cartItem.name,
+                    price: cartItem.price,
+                    cartItemSubTotal: newCartSubtotal,
+                    quantity: cartItem.quantity,
+                    description: cartItem.description,
+                    placedby: {
+                        id: currentUser.id,
+                        username: currentUser.username,
                     }
-                }
+                };
 
+                // Update the cart in the server
+                updateProductQuantity(prodID, updatedCartItem)
+
+
+            } else {
+                alert("Quantity cannot be increased further. Only " + product.stock + " in stock.");
+                return;
             }
 
-        })
-        .catch(error => console.error(error));
+        }
+    }
+}
 
-    // loadCartData();
+async function removeCartItem(prodID) {
+
+    console.log("Removing product from the cart");
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
+    mycart = carts[0];
+    let allCartItems = mycart.items;
+    // Access individual product objects within the array
+    let productIndex;
+
+    for (let i = 0; i < allCartItems.length; i++) {
+        if (allCartItems[i].id == prodID) {
+            productIndex = i;
+            break;
+        }
+    }
+
+    mycart.items.splice(productIndex, 1);
+
+
+
+    // Update the cart in the server
+    await fetch(`http://localhost:3000/carts/${mycart.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mycart)
+    });
 
 }
 
-function sendUpdateRequest(url, { id, ...obj }) {
+async function calculateCartGrandTotal() {
+    let cartTotal = 0;
+    const cartTotalTv = document.getElementById('displayCartGrandTotal');
 
 
-    console.log("sendUpdate request HAS BEEN CALLED");
+    const response = await fetch(`http://localhost:3000/carts?id=${USER_ID}`);
+    const carts = await response.json().catch(error => console.error(error));
+    let allCartItems = carts[0].items;
+
+
+    // Access individual product objects within the array
+    for (const cartItem of allCartItems) {
+
+        // console.log(cartItem.cartItemSubTotal);
+        cartTotal += cartItem.cartItemSubTotal;
+        cartTotalTv.innerHTML = "Ksh " + cartTotal.toFixed(2);
+
+
+
+    }
+
+}
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero for single-digit months
+    const day = String(date.getDate()).padStart(2, '0'); // Add leading zero for single-digit days
+    return `${year}-${month}-${day}`;
+}
+
+async function sendOrderToDatabase(url, obj) {
     // Make the POST request to save the added product to the cart
-    fetch(url + id, {
-        method: "PUT",
+    await fetch(url, {
+        method: "POST",
         body: JSON.stringify(obj),
         headers: {
             "Content-Type": "application/json"
         }
     });
 
-}
-
-
-
-async function increaseQuantity(id) {
-
-    let product = {};
-
-    fetch('http://localhost:3000/products/' + id)
-        .then(response => response.json())
-        .then(data => {
-            product = data;
-
-
-
-
-            fetch('http://localhost:3000/mycart/' + id)
-                .then(response => response.json())
-                .then(data => {
-                    const cartItem = data;
-
-                    if (cartItem.quantity < product.stock) {
-                        cartItem.quantity += 1;
-
-                        let newCartSubtotal = cartItem.price * cartItem.quantity
-
-
-                        const updatedCartItem = {
-                            id: cartItem.id,
-                            imageUrl: cartItem.imageUrl,
-                            name: cartItem.name,
-                            price: cartItem.price,
-                            cartItemSubTotal: newCartSubtotal,
-                            quantity: cartItem.quantity,
-                            description: cartItem.description
-                        };
-                        sendUpdateRequest('http://localhost:3000/mycart/', updatedCartItem);
-
-
-                    } else {
-                        alert("Quantity cannot be increased further. Only " + product.stock + " in stock.");
-                        return;
-                    }
-                }
-                );
-
-
-        });
 
 
 }
 
-async function removeCartItem(id) {
+async function placeOrder() {
+    cartTotal = 0;
 
-    let url = "http://localhost:3000/mycart/" + id;
 
-    await fetch(url, {
-        method: "DELETE"
+    let totalQuantity = 0;
+    for (const cartItem of userCartItems) {
+        totalQuantity += cartItem.quantity;
+        cartTotal += cartItem.cartItemSubTotal;
+
+    }
+    // console.log("TOTAL", totalQuantity);
+    // console.log("mbesha", cartTotal);
+    const today = new Date()
+    const formattedDate = formatDate(today);
+    const newOrder = {
+        id: Math.floor(Math.random() * 1000000000),
+        customerName: currentUser.username,
+        customerID: currentUser.id,
+        orderDate: formattedDate,
+        status: 'Pending',
+        total: cartTotal,
+        quantity: totalQuantity,
+        items: userCartItems,
+
+    }
+
+    //reduce the stock quantity of the products in the user cart
+    reduceStockQuantity(userCartItems)
+
+    //clear the user cart for use next time
+    clearUserCart(USER_ID);
+
+    url = 'http://localhost:3000/orders'
+
+
+    // send the order request
+    sendOrderToDatabase(url, newOrder);
+
+}
+
+function reduceStockQuantity(cartArray) {
+
+
+    for (let i = 0; i < cartArray.length; i++) {
+        console.log(cartArray[i].quantity);
+        let product = {};
+        fetch('http://localhost:3000/products/' + cartArray[i].id)
+            .then(response => response.json())
+            .then(data => {
+                product = data;
+                product.stock -= cartArray[i].quantity;
+                console.log(product.stock);
+                fetch('http://localhost:3000/products/' + cartArray[i].id, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(product)
+                })
+            })
+    }
+
+
+}
+
+async function clearUserCart(userId) {
+    console.log("CLEAR CART EXECUTED")
+
+    // Fetch the user's cart
+    const response = await fetch(`http://localhost:3000/carts?id=${userId}`);
+    const carts = await response.json();
+    let mycart = carts[0];
+
+    // Clear the items
+    mycart.items = [];
+
+    // Update the cart in the server
+    await fetch(`http://localhost:3000/carts/${mycart.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mycart)
     });
 
-
-}
-
-function calculateCartGrandTotal() {
-
-
-    fetch('http://localhost:3000/mycart')
-        .then(response => response.json())
-        .then(data => {
-            const allCartItems = data;
-
-
-            let total = 0;
-            const cartTotalTv = document.getElementById('displayCartGrandTotal');
-
-            // Access individual product objects within the array
-            for (const cartItem of allCartItems) {
-
-                // console.log(cartItem.cartItemSubTotal);
-
-                total += cartItem.cartItemSubTotal;
-                cartTotalTv.innerHTML = "Ksh " + total.toFixed(2);
-            }
-
-
-
-
-
-
-
-        })
-        .catch(error => console.error(error));
-
-
-    // let total = 0;
-    // myCartArray.forEach(cartItem => {
-    //     total += cartItem.cartItemSubTotal;
-    // });
-
-    // // Update the HTML content of the cart total element
-    // const cartTotalTv = document.getElementById('displayCartGrandTotal');
-    // cartTotalTv.innerHTML = "Ksh " + total.toFixed(2);
-
 }
 
 
+//------------------------------------------AUTH VIEW METHODS---------------------------------------------
 
 const registerBtn = document.getElementById("btnRegister");
 registerBtn.addEventListener("click", registerUser);
-
-
 async function registerUser() {
-
     let url = "http://localhost:3000/users";
     let userName = document.getElementById("edtUsrNameReg").value;
     let userEmail = document.getElementById("edtUsrEmailReg").value;
@@ -484,9 +687,6 @@ async function registerUser() {
         return false;
     }
 
-
-
-
     let allusers = [];
     let userExists = false;
 
@@ -510,15 +710,13 @@ async function registerUser() {
         return;
     } else {
 
-
-
         //the user does not exist save user information
         let newUser = {
             id: Math.floor(Math.random() * 1000000000),
             username: userName,
             email: userEmail,
             password: userPassword,
-            role: "CUST"
+            role: "CTR"
         };
 
         await fetch(url, {
@@ -532,33 +730,17 @@ async function registerUser() {
         //show registration success message
         alert("Registration successful.");
 
-        // document.getElementById("edtUsrNameReg").value = "";
-        // document.getElementById("edtUsrEmailReg").value = "";
-        // document.getElementById("edtUsrPasswordReg").value = "";
     }
-
-
-
-
-
 
 }
 
-
 const logInBtn = document.getElementById("btnLogin");
 logInBtn.addEventListener("click", logInUser);
-// let currentUser={};
-// console.log(typeof currentUser)
-// console.log(currentUser.username)
-
-
 async function logInUser() {
-    console.log("clicked")
 
     let url = "http://localhost:3000/users";
     let userName = document.getElementById("edtUsrNameLog").value;
     let userPassword = document.getElementById("edtUsrPasswordLog").value;
-    const userNameTv = document.getElementById("app-user");
 
     if (userName === "") {
         alert("Please enter a username");
@@ -595,9 +777,6 @@ async function logInUser() {
         alert("Password must not contain any spaces");
         return false;
     }
-
-
-
     let allusers = [];
     let userExists = false;
 
@@ -622,24 +801,23 @@ async function logInUser() {
 
             isLoggedIn = true;
             //show login success message
-            alert("Login successful.");
-
-            // window.location.href = "index.html";
-            // console.log(currentUser);
-        }
-
-        // Check if the user is logged in
-        if (isLoggedIn) {
+            // alert("Login successful.");
             // Display the username
+            userNameTv.style.display = "flex";
             userNameTv.textContent = currentUser.username;
-        } else {
-            // Hide the username element
-            userNameTv.style.display = "none";
+
+            //store the user credentials in the session storage
+            storeUserCredentialsSessionStorage(currentUser);
+
+            if (currentUser.role == "ADM") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
+            }
+
+            //redirect to home page
+            window.location.href = "/eversmart.html";
         }
-
-
-
-
 
     } else {
         //the user does not exist show an error message
@@ -647,45 +825,45 @@ async function logInUser() {
         return;
     }
 
-    // document.getElementById("edtUsrNameLog").value = "";
-    // document.getElementById("edtUsrPasswordLog").value = "";
-    // document.getElementById("app-user");
+}
 
+function storeUserCredentialsSessionStorage(userData) {
+    const signedInUser = {
+        id: userData.id,
+        username: userData.username,
+        email: userData.email,
+        role: userData.role
+    };
+    // Store user data as a JSON string in session storage
+    sessionStorage.setItem('loggedInUser', JSON.stringify(signedInUser));
 
+}
+function retrieveUserCredentialsSessionStorage() {
+    // Retrieve user data from session storage as a JSON string
+    const userData = sessionStorage.getItem('loggedInUser');
+    //set current credentials
+    currentUser = JSON.parse(userData);
 
 }
 
+const logoutBtn = document.getElementById('app-logout');
+logoutBtn.addEventListener('click', deleteUserCredentialsSessionStorage)
 
-const menuIcon = document.getElementById("app-menu");
-menuIcon.addEventListener("click", showMenu);
-
-function showMenu() {
-
-    console.log("clicked")
-
-
-    // const dropdowncontent = document.getElementById("menu-dropdown-content");
-
-    // if (dropdowncontent.style.display === "none"){
-    //     dropdowncontent.style.display = "block";
-    // } else {
-    //     dropdowncontent.style.display = "none";
-    // }
-
-
+function deleteUserCredentialsSessionStorage() {
+    if (currentUser) {
+        // Remove user data from session storage 
+        sessionStorage.removeItem('loggedInUser');
+        // alert("Logout successfully completed")
+        //refresh the page
+        window.location.href = "/eversmart.html"
+    }
 }
 
-
-
-
+//------------------------------------------PROD VIEW METHODS---------------------------------------------
 
 const btnAddProduct = document.getElementById("btnAddProd");
 btnAddProduct.addEventListener('click', addProduct);
-
 let productID;
-
-
-
 
 async function addProduct() {
     let url = "http://localhost:3000/products/";
@@ -697,9 +875,7 @@ async function addProduct() {
     const edtProdStock = document.getElementById("prodStock").value;
 
     if (btnAddProduct.value === "Update Product") {
-
         //update an existing product
-
         let updatedProduct = {
             id: productID,
             name: edtProdName,
@@ -717,11 +893,9 @@ async function addProduct() {
             }
         })
 
-
     } else {
 
         //create a new product
-
         // Validation
         if (edtProdName === "") {
             alert("Product name is required");
@@ -770,6 +944,8 @@ async function addProduct() {
                 break;
             }
         }
+
+
         //the product exists show an error message
         if (prodExists) {
             alert("Product already exists. Kindly choose a different product name");
@@ -803,18 +979,7 @@ async function addProduct() {
 
 
 }
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    viewProductAdmin();
-
-})
-
-
 async function viewProductAdmin() {
-
     let url = "http://localhost:3000/products";
     let allProducts = [];
 
@@ -830,6 +995,10 @@ async function viewProductAdmin() {
 
     for (let prod of allProducts) {
         // console.log(prod.imageUrl);
+        let formattedPrice = parseFloat(prod.price);
+
+        let priceString = formattedPrice.toFixed(2);
+
 
         productsTV.innerHTML += `
         <div class="product-card">
@@ -841,90 +1010,156 @@ async function viewProductAdmin() {
                 <h3>${prod.name}</h3>
                 <p>${prod.stock} in stock</p>
             </div>
-            <p>Ksh ${prod.price} </p>
+            <p>Ksh: ${priceString} </p>
             <input type="button" value="Edit Product" onclick="editProduct('${prod.id}')">
         </div>
       `;
 
     }
 
-
 }
-
-
-
-
-
-
-
-
-
 
 async function editProduct(prodID) {
     let url = "http://localhost:3000/products/" + prodID
-
     let response = await this.fetch(url);
     let prod = await response.json();
-
     document.getElementById("prodName").value = prod.name;
     document.getElementById("prodDesc").value = prod.description;
     document.getElementById("prodPrice").value = prod.price;
     document.getElementById("prodImgUrl").value = prod.imageUrl;
     document.getElementById("prodCat").value = prod.category;
     document.getElementById("prodStock").value = prod.stock;
+    // document.getElementById("form-title").textContent="Update Product" ;
+    let title = document.getElementById("form-title");
+    title.textContent = "Update Product"
     btnAddProduct.value = "Update Product"
-
     productID = prod.id;
 
 }
 
-
-
 async function deleteProduct(productID) {
     let url = "http://localhost:3000/products/" + productID;
-
     await fetch(url, {
         method: "DELETE"
     });
 }
 
 
+//------------------------------------------ODERS VIEW METHODS---------------------------------------------
+
+let addedOrderIDs = [];  // Array to store IDs of added orders
+function loadCtrOrders() { //load customer orders
+    let ordersTV = document.getElementById("displayOrdersCtr");
+    fetch('http://localhost:3000/orders')  // Replace with your actual server URL
+        .then(response => response.json())
+        .then(data => {
+            const allOrders = data;
+            // Access individual order objects within the array
+            for (const order of allOrders) {
+
+                let formattedPrice = parseFloat(order.total);
+
+                let priceString = formattedPrice.toFixed(2);
 
 
 
+                if (currentUser.id == order.customerID && !addedOrderIDs.includes(order.id)) {
+                    addedOrderIDs.push(order.id);  // Add the order ID to the array
+                    ordersTV.innerHTML += `
+                    <div class="order-record" id="app-record" onclick="recordClick('${order.id}')">
+                        <div class="equal-2">
+                            <p>${order.id}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p id="cust-name">${order.customerName}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.orderDate}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.quantity}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>Ksh: ${priceString}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.status}</p>
+                        </div>
+
+                        <div id="record-actions" class="equal-2">
+                            <input id="app-order-cancel" type="button" value="Cancel Order" onclick="">
+                            <!-- <ion-icon name="trash-outline"></ion-icon> -->
+                        </div>
+
+                    </div>
+                    `;
+                }
+
+            }
+        })
+        .catch(error => console.error(error));
+
+}
+
+function recordClick(rec_id) {
+    // console.log('recordClicked');
+    // console.log(rec_id);
+}
+
+//------------------------------------------ADMIN ODERS VIEW METHODS---------------------------------------------
+
+let addedOrderIDsAdminSide = [];
+function loadAdminOrders() {
+    let ordersTV = document.getElementById("displayOrdersAdmin");
+    fetch('http://localhost:3000/orders')  // Replace with your actual server URL
+        .then(response => response.json())
+        .then(data => {
+
+            const allOrders = data;
+            for (const order of allOrders) {
+
+                let formattedPrice = parseFloat(order.total);
+
+                let priceString = formattedPrice.toFixed(2);
 
 
+                if (!addedOrderIDsAdminSide.includes(order.id)) {
+                    addedOrderIDsAdminSide.push(order.id);  // Add the order ID to the array
+
+                    ordersTV.innerHTML += `
+                    <div class="order-record" id="app-record" onclick="recordClick('${order.id}')">
+                        <div class="equal-2">
+                            <p>${order.id}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p id="cust-name">${order.customerName}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.orderDate}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.quantity}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>Ksh: ${priceString}</p>
+                        </div>
+                        <div class="equal-2">
+                            <p>${order.status}</p>
+                        </div>
+
+                        <div id="record-actions" class="equal-2">
+                            <input id="app-order-deets" type="button" value="Details">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </div>
+
+                    </div>
+              `;
+                }
+            }
+        }).catch(error => console.error(error));
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//******************************************MAIN CODE ENDS HERE*************************************************//
 
