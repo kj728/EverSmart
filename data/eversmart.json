@@ -62,7 +62,7 @@
       "price": 5000,
       "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
       "category": "Jackets",
-      "stock": 23
+      "stock": 18
     },
     {
       "id": "4",
@@ -80,7 +80,7 @@
       "price": "100",
       "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
       "category": "Accessories",
-      "stock": "45"
+      "stock": 35
     },
     {
       "id": "6",
@@ -548,7 +548,7 @@
       ]
     },
     {
-      "id": 955385830,
+      "id": "955385830",
       "customerName": "Mike",
       "customerID": "631556788",
       "orderDate": "2024-05-26",
@@ -585,7 +585,7 @@
       ]
     },
     {
-      "id": 426968089,
+      "id": "426968089",
       "customerName": "Mike",
       "customerID": "631556788",
       "orderDate": "2024-05-26",
@@ -635,7 +635,7 @@
       ]
     },
     {
-      "id": 447333591,
+      "id": "447333591",
       "customerName": "Esther",
       "customerID": "790745678",
       "orderDate": "2024-05-27",
@@ -672,7 +672,7 @@
       ]
     },
     {
-      "id": 793228690,
+      "id": "793228690",
       "customerName": "Angela",
       "customerID": "172273320",
       "orderDate": "2024-05-27",
@@ -709,7 +709,7 @@
       ]
     },
     {
-      "id": 389425149,
+      "id": "389425149",
       "customerName": "James",
       "customerID": "790703759",
       "orderDate": "2024-05-27",
@@ -738,6 +738,54 @@
           "cartItemSubTotal": 4000,
           "quantity": 2,
           "description": "Stylish and comfortable sneakers for everyday wear.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        }
+      ]
+    },
+    {
+      "id": "457157537",
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-05-30",
+      "status": "Pending",
+      "total": 1000,
+      "quantity": 10,
+      "items": [
+        {
+          "id": "5",
+          "imageUrl": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2Fwc3xlbnwwfDF8MHx8fDI%3D",
+          "name": "Cap",
+          "price": "100",
+          "cartItemSubTotal": 1000,
+          "quantity": 10,
+          "description": "Stylish and comfortable cap, perfect for everyday wear and outdoor activities.",
+          "placedby": {
+            "id": "790703759",
+            "username": "James"
+          }
+        }
+      ]
+    },
+    {
+      "id": 925744281,
+      "customerName": "James",
+      "customerID": "790703759",
+      "orderDate": "2024-06-02",
+      "status": "Pending",
+      "total": 25000,
+      "quantity": 5,
+      "items": [
+        {
+          "id": "3",
+          "imageUrl": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGphY2tldHxlbnwwfDF8MHx8fDI%3D",
+          "name": "Leather Jacket",
+          "price": 5000,
+          "cartItemSubTotal": 25000,
+          "quantity": 5,
+          "description": "Premium leather jacket for a timeless and rugged look.",
           "placedby": {
             "id": "790703759",
             "username": "James"
